@@ -6,7 +6,7 @@
     <title>Document</title>
     <link href="/dist/output.css" rel="stylesheet">
 </head>
-<body class = "">
+<body class = "bg-lime-300">
     <main class = "flex items-center justify-center h-[75vh] min-h-[500px] p-10 mt-[50px]">
         <div class = "w-[400px] border-2 border-gray-950 rounded-2xl p-5 bg-gray-400 " id = "calculator">
             <div class = "px-[15px] py-[30px] border-2 border-gray-950 rounded-md mb-5 bg-gray-200 text-right text-4xl" id = "screen" >
@@ -18,15 +18,15 @@
                     <button class = "bg-blue-300 p-5 border-2 rounded-md border-gray-950">DELETE</button>
                 </div>
                 <div class = "grid grid-cols-4 gap-3 text-xl">
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         7
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         8
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         9
                     </button>
 
@@ -34,15 +34,15 @@
                         &divide;
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         4
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number >
                         5
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         6
                     </button>
 
@@ -50,15 +50,15 @@
                         &times;
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         1
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         2
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         3
                     </button>
 
@@ -70,7 +70,7 @@
                         .
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         0
                     </button>
 
@@ -85,6 +85,20 @@
             </div>
         </div>
     </main>
+
+    <script>
+        const numbers = document.querySelectorAll("[data-number]");
+        let screen = document.querySelector("#screen");
+      
+        numbers.forEach(number => {
+            number.addEventListener('click', () => {
+                if(screen.textContent == 0){
+                    screen.textContent = '';
+                }
+                screen.textContent += number.textContent;
+            } )
+        })
+    </script>
 </body>
 </html>
     
