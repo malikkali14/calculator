@@ -14,7 +14,7 @@
             </div>
             <div id = "buttons" >
                 <div class = "grid grid-cols-2 gap-3 mb-3">
-                    <button class = "bg-red-300 p-5 border-2 rounded-md border-gray-950">CLEAR</button>
+                    <button class = "bg-red-300 p-5 border-2 rounded-md border-gray-950" id = 'clear'>CLEAR</button>
                     <button class = "bg-blue-300 p-5 border-2 rounded-md border-gray-950">DELETE</button>
                 </div>
                 <div class = "grid grid-cols-4 gap-3 text-xl">
@@ -97,6 +97,11 @@
                 }
                 screen.textContent += number.textContent;
             } )
+        })
+
+        const clear = document.querySelector('#clear'); 
+        clear.addEventListener('click', () =>{
+            screen.textContent = 0
         })
     </script>
 </body>
