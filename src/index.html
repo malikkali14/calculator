@@ -9,8 +9,9 @@
 <body class = "bg-lime-300">
     <main class = "flex items-center justify-center h-[75vh] min-h-[500px] p-10 mt-[50px]">
         <div class = "w-[400px] border-2 border-gray-950 rounded-2xl p-5 bg-gray-400 " id = "calculator">
-            <div class = "px-[15px] py-[30px] border-2 border-gray-950 rounded-md mb-5 bg-gray-200 text-right text-4xl" id = "screen" >
-                0
+            <div class = "px-[15px] py-[20px] border-2 border-gray-950 rounded-md mb-5 bg-gray-200 text-right text-4xl" id = "screen" >
+                <div class = "text-lg mb-2 text-gray-700" id = "pastScreen"></div>
+                <div id = "currentScreen">0</div>
             </div>
             <div id = "buttons" >
                 <div class = "grid grid-cols-2 gap-3 mb-3">
@@ -30,7 +31,7 @@
                         9
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
                         &divide;
                     </button>
 
@@ -46,7 +47,7 @@
                         6
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
                         &times;
                     </button>
 
@@ -62,11 +63,11 @@
                         3
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
                         &minus;
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
                         .
                     </button>
 
@@ -74,11 +75,11 @@
                         0
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = 'equals'>
                         =
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950">
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
                         &plus;
                     </button>
                 </div>
@@ -88,21 +89,68 @@
 
     <script>
         const numbers = document.querySelectorAll("[data-number]");
-        let screen = document.querySelector("#screen");
+        const currentScreen = document.querySelector("#currentScreen");
+        const pastScreen = document.querySelector("#pastScreen");
+        let counter = 0;
       
         numbers.forEach(number => {
             number.addEventListener('click', () => {
-                if(screen.textContent == 0){
-                    screen.textContent = '';
+                if((currentScreen.textContent === '0')){
+                    currentScreen.textContent = '';
                 }
-                screen.textContent += number.textContent;
+                else if((pastScreen.textContent.length > 0) && (counter == 0)){
+                    currentScreen.textContent = '';
+                    counter += 1;
+                }
+                currentScreen.textContent += number.textContent;
             } )
         })
 
         const clear = document.querySelector('#clear'); 
         clear.addEventListener('click', () =>{
-            screen.textContent = 0
+            currentScreen.textContent = 0
+            pastScreen.textContent = ''
         })
+
+        const operators = document.querySelectorAll("[data-operator]");
+        operators.forEach(operator => {
+            operator.addEventListener('click', () => {
+                if(counter > 0){
+                    console.log('hhi');
+                    if(pastScreen.textContent.slice(-1) == '&divide'){
+                        divide(pastScreen.textContent, currentScreen.textContent);
+                    }
+                    else if (pastScreen.textContent.slice(-1) == '&times'){
+                        multiply(pastScreen.textContent, currentScreen.textContent)
+                    }
+                    else if (pastScreen.textContent.slice(-1) == '&plus'){
+                        add(pastScreen.textContent, currentScreen.textContent)
+                    }
+                    else if (pastScreen.textContent.slice(-1) == '&minus'){
+                        subtract(pastScreen.textContent, currentScreen.textContent)
+                    }
+                }
+                pastScreen.textContent = (currentScreen.textContent + operator.textContent);
+                counter = 0;
+            })
+        })
+
+        function divide(a,b) {
+            console.log(a);
+        }
+
+        function multiply(a,b){
+
+        }
+
+        function add(a,b){
+
+        }
+
+        function subtract(a,b){
+
+        }
+
     </script>
 </body>
 </html>
