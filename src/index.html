@@ -19,68 +19,52 @@
                     <button class = "bg-blue-300 p-5 border-2 rounded-md border-gray-950">DELETE</button>
                 </div>
                 <div class = "grid grid-cols-4 gap-3 text-xl">
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        7
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>7
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        8
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>8
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        9
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>9
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
-                        &divide;
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = "divide" data-operator>&divide;
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        4
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>4
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number >
-                        5
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>5
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        6
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>6
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
-                        &times;
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = "times" data-operator>&times;
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        1
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>1
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        2
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>2
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        3
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>3
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
-                        &minus;
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = "minus" data-operator>&minus;
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        .
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>.
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>
-                        0
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>0
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = 'equals'>
-                        =
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = 'equals'>=
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-operator>
-                        &plus;
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = "add" data-operator>&plus;
                     </button>
                 </div>
             </div>
@@ -91,65 +75,86 @@
         const numbers = document.querySelectorAll("[data-number]");
         const currentScreen = document.querySelector("#currentScreen");
         const pastScreen = document.querySelector("#pastScreen");
-        let counter = 0;
-      
+        let screenCounter = 0;
+ 
+        let operatorCounter = 0;
+        let a;
+        let b;
+        let operatorTrack = '';
+
+        let minus = document.querySelector('#minus');
+        let add = document.querySelector('#add');
+        let multiply = document.querySelector('#times');
+        let divide = document.querySelector('#divide');
+
         numbers.forEach(number => {
             number.addEventListener('click', () => {
                 if((currentScreen.textContent === '0')){
                     currentScreen.textContent = '';
                 }
-                else if((pastScreen.textContent.length > 0) && (counter == 0)){
+                else if((pastScreen.textContent.length > 0) && (screenCounter == 0)){
                     currentScreen.textContent = '';
-                    counter += 1;
+                    screenCounter += 1;
                 }
-                currentScreen.textContent += number.textContent;
-            } )
+                currentScreen.textContent += number.textContent.trim();
+                console.log(number.textContent)
+            })
         })
 
         const clear = document.querySelector('#clear'); 
-        clear.addEventListener('click', () =>{
+        clear.addEventListener('click', () => {
             currentScreen.textContent = 0
             pastScreen.textContent = ''
+            a = 0;
+            b = 0;
+            operatorCounter = 0;
         })
 
         const operators = document.querySelectorAll("[data-operator]");
         operators.forEach(operator => {
             operator.addEventListener('click', () => {
-                if(counter > 0){
-                    console.log('hhi');
-                    if(pastScreen.textContent.slice(-1) == '&divide'){
-                        divide(pastScreen.textContent, currentScreen.textContent);
-                    }
-                    else if (pastScreen.textContent.slice(-1) == '&times'){
-                        multiply(pastScreen.textContent, currentScreen.textContent)
-                    }
-                    else if (pastScreen.textContent.slice(-1) == '&plus'){
-                        add(pastScreen.textContent, currentScreen.textContent)
-                    }
-                    else if (pastScreen.textContent.slice(-1) == '&minus'){
-                        subtract(pastScreen.textContent, currentScreen.textContent)
-                    }
+                pastScreen.textContent = (currentScreen.textContent + ' ' + operator.textContent);
+                screenCounter = 0;
+                if(operatorCounter == 0){
+                    a = parseFloat(currentScreen.textContent);
+                    operatorTrack = operator.textContent;
+                    operatorCounter += 1;
+                    console.log(a);
+                    console.log(operatorTrack);
+                    console.log(operatorCounter)
                 }
-                pastScreen.textContent = (currentScreen.textContent + operator.textContent);
-                counter = 0;
+                else{
+                    b = parseFloat(currentScreen.textContent);
+                    if(operatorTrack == minus.textContent){
+                         a = a - b;
+                        pastScreen.textContent = (a + ' ' + operator.textContent);
+                        currentScreen.textContent = a;
+                    }
+                    else if(operatorTrack == multiply.textContent){
+                        a = a * b;
+                        pastScreen.textContent = (a + ' ' + operator.textContent);
+                        currentScreen.textContent = a;
+                    }
+                    else if(operatorTrack == add.textContent){
+                        a = a + b;
+                        pastScreen.textContent = (a + ' ' +  operator.textContent);
+                        currentScreen.textContent = a;
+                    }
+                    else if(operatorTrack == divide.textContent){
+                        a = Number((a/b).toFixed(5));
+                        pastScreen.textContent = (a + ' ' +  operator.textContent);
+                        currentScreen.textContent = a;
+                    }
+                    operatorTrack = operator.textContent;
+                    console.log(operatorTrack);
+                   
+                }
             })
         })
 
-        function divide(a,b) {
-            console.log(a);
-        }
 
-        function multiply(a,b){
 
-        }
 
-        function add(a,b){
-
-        }
-
-        function subtract(a,b){
-
-        }
 
     </script>
 </body>
