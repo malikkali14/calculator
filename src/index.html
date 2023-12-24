@@ -61,7 +61,7 @@
                     <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" data-number>0
                     </button>
 
-                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = 'equals'>=
+                    <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = 'equals' data-operator>=
                     </button>
 
                     <button class = "bg-gray-50 p-5 border-2 rounded-md border-gray-950" id = "add" data-operator>&plus;
@@ -86,6 +86,7 @@
         let add = document.querySelector('#add');
         let multiply = document.querySelector('#times');
         let divide = document.querySelector('#divide');
+        let equals = document.querySelector('#equals');
 
         numbers.forEach(number => {
             number.addEventListener('click', () => {
@@ -119,9 +120,6 @@
                     a = parseFloat(currentScreen.textContent);
                     operatorTrack = operator.textContent;
                     operatorCounter += 1;
-                    console.log(a);
-                    console.log(operatorTrack);
-                    console.log(operatorCounter)
                 }
                 else{
                     b = parseFloat(currentScreen.textContent);
@@ -131,7 +129,7 @@
                         currentScreen.textContent = a;
                     }
                     else if(operatorTrack == multiply.textContent){
-                        a = a * b;
+                        a = Number((a * b).toFixed(5));
                         pastScreen.textContent = (a + ' ' + operator.textContent);
                         currentScreen.textContent = a;
                     }
@@ -151,6 +149,12 @@
                 }
             })
         })
+
+    
+
+
+
+
 
 
 
